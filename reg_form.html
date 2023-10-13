@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+     <head>
+	     <title>Reg form trial 2</title>
+		 <style>
+		     .body{
+			 background-color:azure;
+			 }
+			 .align{
+			 display:flex;
+			 justify-content:left;
+			 margin-left:20%;
+			 }
+			 button{
+			     font-size: 20px;
+                 line-height: 5px;
+                 font-weight: 400;
+                 color: white;
+                 background-color:blue;
+                 border-radius: 5px 5px;
+                 padding: 20px 40px 20px 40px;
+                 
+			  }
+		 </style>
+		 <script>
+		     function validateForm(){
+			     let inputsNo=document.getElementsByTagName("input");
+				 let array=[];
+				 let medicalConditions=[];
+				 let termsConditions="";
+				 for ( let i=0;i<inputsNo.length;i++){
+				     //if(inputsNo[i].type=="text" && i==9){
+				     if (inputsNo[i].type=="text" && i!=12 && i!=9 && i!=17){
+					     let obj=inputsNo[i];
+						 let value=obj.value.trim();
+						 if (value=="" || value==null || value==undefined || value.trim()==""){
+						     alert("Please enter your valid details"); 
+							 obj.focus();
+							 return;
+						}
+						     else{
+						     let variable="1,2,3,4,5,6,7,8,9,0,-,=,!,@,#,$,%,^,&,*,(,),_,+,{,},|,[,],;,:,',<,>,.,?,~,`,\",\/";
+						     specialChars=variable.split(",");
+						     specialChars.push(",");
+					             for (j=0;j<specialChars.length;j++){
+								     let b=specialChars[j];
+									 let c=value.indexOf(b);
+						             if (c>=0){
+						                 alert("Special characters like '"+b+"' are not allowed in this field.");
+							             obj.focus();
+							             return;
+							        }
+									
+						        }
+						    }
+							if (array.length==8){
+							
+							}
+							else{array.push(value);}
+							
+					    }
+						if(inputsNo[i].type=="text" && inputsNo[i].name=="houseaddress"){
+						     let obj=inputsNo[i];
+						     let value=obj.value.trim();
+						     if (value=="" || value==null || value==undefined || value.trim()==""){
+						         alert("Please enter your valid details"); 
+							     obj.focus();
+							     return;
+						    }
+							else{
+						     let variable="=,!,@,#,$,%,^,&,*,(,),_,+,{,},|,[,],;,',<,>,.,?,`,~,\"";
+						     specialChars=variable.split(",");
+						     //specialChars.push(',');
+					             for (j=0;j<specialChars.length;j++){
+								     let b=specialChars[j];
+									 let c=value.indexOf(b);
+						             if (c>=0){
+						                 alert("Special characters like '"+b+"' are not allowed in this field.");
+							             obj.focus();
+							             return;
+							        }
+						        }
+						    }
+					       array.push(value);
+					    }
+					
+					if (inputsNo[i].type=="number"){
+					     let obj=inputsNo[i];
+						 let value=obj.value;
+						 if (value=="" || value==null || value==undefined || value.trim()==""){
+						     alert("Please enter your valid details"); 
+							 obj.focus();
+							 return;
+						}
+						 value=parseInt(value);
+						if (obj.name=="age"){
+						     if (value>100 || value<0){
+							     alert("Please enter valid age criteria.");
+								 obj.focus();
+								 return;
+							 }
+						}
+						if (obj.name=="height"){
+						     if (obj.value>255 || obj.value<25){
+							     alert("Please enter correct Height.");
+								 obj.focus();
+								 return;
+							 }
+						}
+						if (obj.name=="weight"){
+						     if (obj.value>150 || obj.value<1){
+							     alert("Please enter correct weight.");
+								 obj.focus();
+								 return;
+							 }
+						}
+						
+						if (obj.name=="mobNo" || obj.name=="ECphno"){
+						     if (obj.value.length>10 || obj.value.length<10){
+							     alert("Please enter 10 digit mobile number.");
+								 obj.focus();
+								 return;
+							}
+						}
+						
+						
+						if(obj.name=="pincode"){
+						     let c=value;
+							 if(obj.value.length==6){
+							   if(obj.value[0]==5){
+							     if(obj.value[1]==0 || obj.value[1]==1 || obj.value[1]==2 || obj.value[2]==3){
+								     alert ("The user has taken valid pincode were services are available for AP and TS.")
+								 }
+							  }
+							  else{
+							      alert ("The user has taken invalid pincode were services are not available.")
+								     obj.focus();
+								     return;
+							  }
+							}
+							else{
+							     if(obj.value.length>6 || obj.value.length<6){
+								     alert("The user has to enter valid 6 digit pincode of TS and AP states.")
+									 obj.focus();
+								     return;
+								 }
+								 else{
+							         alert("The user has to enter valid pincode for services within the states of  AP and TS.")
+								     obj.focus();
+								     return;
+								 }
+							}
+						}
+						if (array[6]==value){
+						     alert("Same mobile number can not be entered. Please give another number.");
+						     obj.focus();
+							 return
+						}
+					 	 array.push(value);
+					}
+					
+					if(inputsNo[i].type=="email"){
+					     let obj=inputsNo[i];
+						 let value=obj.value;
+						 let b=[];
+					     if(obj.name=="emailid" ) {
+						     let splChars=["@",".com"];
+							 for(let i=0;i<splChars.length;i++){
+							     let a=obj.value.indexOf(splChars[i]);
+								 if(a==-1){
+								     alert("Please Enter valid Email-Id");
+									 obj.focus();
+									 return;
+									
+								}
+								 b.push(a);
+							}
+							if(b[1]< b[0] || (b[1]-b[0])==1){
+							     alert("Please enter valid email-id order.");
+								 obj.focus();
+									 return;
+							}
+							 array.push(obj.value);
+						}
+					}
+					
+					if (inputsNo[i].type=="date"){
+					     let obj=inputsNo[i];
+						 //obj.max==
+						 let val=obj.value;
+						 if (val=="" || val==null || val==undefined || val.trim()==""){
+						     alert("Please enter your valid details"); 
+							 obj.focus();
+							 return;
+						}
+						//if(val==getDate())
+						array.push(val);
+					}	
+				}
+				
+				//validating the gender.
+				let genderObj=document.getElementsByName("gender");
+				let x=false;
+				let gender="";
+				for(let i=0;i<genderObj.length;i++){
+				     if(genderObj[i].checked==true){
+					     x=true;
+						 gender=genderObj[i].value;
+						 break;
+					}
+				}
+				if(x==false){
+				     alert("Please select either of the gender.");
+					 return;
+				}
+				
+				let surgeriesObj=document.getElementsByName("surgeries");
+				let y=false;
+				let surgeries="";
+				for(let i=0;i<surgeriesObj.length;i++){
+				     if(surgeriesObj[i].checked==true){
+					     y=true;
+						 surgeries=surgeriesObj[i].value;
+						 break;
+					 }
+				}
+				if(y==false){
+				     alert("Please select either of the Surgeries.");
+					 return;
+				}
+				
+				//validating the tagname with select
+				
+				let civilObj=document.getElementsByTagName("select");
+				let select=[];
+				for (let i=0;i<civilObj.length;i++){
+				     let a=civilObj[i].selectedIndex;
+					 if (a==0){
+					     alert("Please select the option.");
+						 civilObj[i].focus();
+						 return;
+					 }
+					 select.push(civilObj[i][a].value);
+				}
+				
+				//validating the checkbox
+				let medico=document.getElementsByTagName("input");
+				let check= false;
+				for( j=0;j<medico.length;j++){
+				    if(medico[j].type=="checkbox" && medico[j].name!="termconditions" && medico[j].checked==true){
+					     medicalConditions.push(medico[j].name);
+						 check=true;
+					}
+					else if(medico[j].type=="checkbox" && medico[j].name=="termconditions"){
+					     if(medico[j].checked==true){
+						     termsConditions=medico[j].name;
+							 break;
+						}
+						 else{
+						     alert("Please Read the Terms and Conditions & Select accordingly.");
+						}
+						 
+						 
+					}
+				}
+				if(check==false){
+				     let z=confirm("Hope everything is fine that you do not have either of the problems mentioned below. If You do have any other problems please select 'Ok' then click on Other Problems below and enter the details in it.");
+					 if(z){
+					     return;
+					 }
+					 
+				}
+				
+				let textArea=document.getElementsByTagName("textarea");
+				let file=document.getElementById("file").value;
+				if(file==""){
+				     alert("Please choose the file")
+				     document.getElementById("file").focus();
+					 return;
+				}
+				
+				
+				
+				document.getElementById("result").innerHTML = "First Name of the user= "+array[0]+"<br/>Last Name of the user= "+array[1]+"<br/>Gender of the user= "+gender+"<br/>Age = "+array[2]+"<br/>Height = "+array[3]+"<br/>Weight = "+array[4]+"<br/>Date of Birth = "+array[5]+"<br/>Civilian Status = "+select[0]+"<br/>Mobile Number = "+array[6]+"<br/>Email-Id = "+array[7]+"<br/>Street  = "+array[8]+"<br/>City = "+array[9]+"<br/>State = "+array[10]+"<br/>Pincode = "+array[11]+"<br/>Emergency Contact Name = "+array[12]+"<br/>Emergency Contact Mobile Number = "+array[13]+"<br/>Blood Group = "+select[1]+"<br/>Medical Conditions = "+medicalConditions+"<br/>Other Medical Conditions = "+textArea[0].value+"<br/>Any Previous Surgeries = "+surgeries+"<br/>Previous Surgeries Data = "+textArea[1].value+"<br/>Date of Application = "+array[14]+"<br/>Signature file = "+file;
+			}
+			
+			function openTextarea1(){
+			     let a=document.getElementById("textarea1");
+				 a.style.display="block";
+				 let b=document.getElementsByName("Others");
+				 if(b[0].checked==false){
+				     a.style.display="none";
+					 a.value="";
+				 }
+			}
+			
+			function openTextarea2(){
+			     let a=document.getElementById("textarea2");
+				 a.style.display="block";
+			}
+			
+			function closeTextarea2(){
+			     let a=document.getElementById("textarea2");
+				 a.style.display="none";
+				 a.value="";
+			}
+			
+			
+			
+		 </script>
+	 </head>
+	 <body class="body">
+	     <h1 style="text-align:center">REGISTRATION FORM</h1>
+	     <form>
+		 <div class="align">
+		 <div>
+		    <h3>General Information</h3>
+			 Name   : <input  type="text" placeholder="First Name" name="firstname" required />
+			          <input  type="text" placeholder="Last Name" name="lastname" required /><br /><br/> 
+			 
+			 Gender :<input  type="Radio" name="gender" value="Male"/>Male 
+			         <input  type="Radio" name="gender" value="Female"/>Female 
+                     <input  type="Radio" name="gender" value="Others"/>Others	<br /><br/> 
+			 
+			 Age    : <input  style="width:8%" type="number" name="age" placeholder="Age" min="0"         max="100" required /> 
+			 Height : <input style="width:12%" type="number" name="height" min="25" max="255" placeholder         ="in cms" required />
+             Weight : <input style="width:12%" type="number" name="weight" min="0" placeholder="in kgs"         max="150" required /><br/><br/>
+			 
+			 Date of Birth:<input  type="date" name="dob" min="1923-01-01" required><br></br>
+			 
+			 Civilian Status :<select>
+	                         <option>Choose</option>
+	                         <option>Single</option>
+	                         <option>Married</option>
+	                         <option>Divorced</option>
+				             <option>Widowed</option>
+						</select><br/></br>
+			 
+			 Mobile number :<input type="text" name="countryCode"  value="+91" size="2" readonly />  <input  type="number" maxlength="2"  name="mobNo"  value="+91" required /><br/><br/>
+			 
+			 E mail-id :<input  type="email" placeholder="___@gmail.com"pattern="@gmail.com" name           ="emailid" /><br/><br/>
+			 
+			 Address:<input type="text" placeholder="House Address" name="houseaddress"required>&nbsp&nbsp
+			         <input type="text" placeholder="City" name="address" required><br/>
+			          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+			         <input type="text" placeholder="State" name="address" required>&nbsp&nbsp
+			         <input type="number"min="0" placeholder="Pincode" name="pincode" required><br/><br/>
+				 
+				 
+			 <div style="font-weight:bold">Emergency-contact </div>
+			 Name   : <input  type="text" placeholder="Name" name="ECname" required /> &nbsp 
+			 Ph No :  <input type="text" name="countryCode"  value="+91" size="2" readonly /><input  style="width:22%" type="number" maxlength="10" name="ECphno" placeholder         ="123-456-7890"pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" required /><br/><br/>
+		</div>
+        <div style="margin-left:5%">  	
+		<h3>Medical Information</h3><br/><br/>
+		    
+		    Blood Group :<select>
+	                         <option>Choose</option>
+	                         <option>A+</option>
+	                         <option>A-</option>
+	                         <option>B+</option>
+				             <option>B-</option>
+				             <option>O+</option>
+							 <option>O-</option>
+							 <option>AB+</option>
+							 <option>AB-</option>
+						</select><br/></br>
+			Medical Conditions:<br/></br>
+			<table>
+			     <tr>
+			         <td><input  type="checkbox" name="Diabetes" />Diabetes</td>
+			         <td><input  type="checkbox" name="High Blood Pressure" />High Blood Pressure</td>
+		         </tr> 
+				 <tr>
+			         <td><input  type="checkbox" name="Heart Disease" />Heart Disease</td>
+			         <td><input  type="checkbox" name="Heart Stroke" />Heart Stroke</td>
+		         </tr> 
+				 <tr>
+			         <td><input  type="checkbox" name="Ashtma" />Ashtma</td>
+			         <td><input  type="checkbox" name="Arthritis" />Arthritis</td>
+		         </tr> 
+				 <tr>
+			         <td><input  type="checkbox" name="COPD" />COPD</td>
+			         <td><input  type="checkbox" name="Cancer" />Cancer</td>
+		         </tr> 
+				 <tr>
+				     <td><input  type="checkbox" name="Others" onclick="openTextarea1()"/>Other Problems</td>
+					 <td><textarea placeholder="If Others, mention here" style="display:none" id="textarea1"></textarea></td>
+				 </tr>
+		   </table>
+		   Any past surgeries:
+		         <input  type="Radio" name="surgeries" value="yes" onclick="openTextarea2()"/>YES
+				 <input  type="Radio" name="surgeries" value="no" onclick="closeTextarea2()"/>NO<br/>
+				 <textarea placeholder="If YES, mention here" rows="6" cols="35" style="display:none" id="textarea2"></textarea>
+		</div>
+    </div><br/> <hr/>
+	<div style="text-align:center">
+	     <input  type="checkbox" name="termconditions"/>Terms And Conditions
+             <p>One's health and well-being are directly influenced by their doctor and vice versa.By completing this form you accept that<br/>
+			 all mentioned information is correct and that you are accepting a treatment that is prepared based on the provided data.<br/>
+			 Any health condition occurred by a lack of information that is triggered due to the provided diet will be on customers' responsibility.</p>
+			 Date :<input type="date" /> &nbsp &nbsp&nbsp&nbsp Signature: <input type="File" id="file" required /> <br/>
+	</div><br/>
+	<div id="result"></div>
+	<center>
+	     <button onclick="validateForm();return false;">submit</button><br/><br/>
+	</center>
+		 </form>
+	 </body>
+</html>
